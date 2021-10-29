@@ -18,7 +18,7 @@ flipCamera.addEventListener("click", () => {
 
 const constraints = {
     audio: {
-        autoGainControl: true,
+        autoGainControl: false,
         channelCount: 2,
         echoCancellation: false,
         latency: 0,
@@ -29,16 +29,11 @@ const constraints = {
     },
     video: {
         facingMode: front ? "user" : "environment",
-        frameRate: { ideal: 10, max: 15 },
+        frameRate: { ideal: 15, max: 20 },
     },
 };
 
-const peer = new Peer(undefined, {
-    initiator: true,
-    trickle: false,
-});
 
-console.log(peer);
 
 let myVideoStream;
 let myUserId;
@@ -74,7 +69,6 @@ async function videoCall() {
 
     socket.on("user-connected", (userId) => {
         console.log("Connect To New User Start");
-        myUserId = userId;
         connectToNewUser(userId, stream);
     });
 }
@@ -85,8 +79,6 @@ socket.on("user-disconnected", (userId) => {
 
 peer.on("open", (id) => {
     console.log("voice chat on!");
-    users.push(id);
-    console.log(users);
     socket.emit("join-room", ROOM_ID, id);
 });
 
