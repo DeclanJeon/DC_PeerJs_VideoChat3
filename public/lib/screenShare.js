@@ -1,6 +1,6 @@
 const shareScreenBtn = document.getElementById("shareScreen");
-let userDisplayName;
-let myScreenStream;
+
+const senders = [];
 
 const displayMediaConfig = {
     video: {
@@ -35,15 +35,34 @@ function getDisplayMedia(options) {
 
 const shareScreen = async () => {
     let captureStream = null;
+    let myScreenStream = null;
     try {
-        captureStream = await mediaDevices.getDisplayMedia(displayMediaConfig);
+        if(!captureStream) {
+            captureStream = await mediaDevices.getDisplayMedia(displayMediaConfig);
+        }
         myScreenStream = captureStream;
     } catch (err) {
-        console.error("Error: " + err);
+        console.error("unable to get display media: " + err);
     }
-    connectToNewUser(myUserId, captureStream);
-    socket.emit("screenShare", captureStream);
+    for (let i = 0; i < peerList.length; i++) {
+        let screenPeer = peerList.pop(i);
+        connectToNewUser(screenPeer, captureStream);
+        socket.emit("screenShare", captureStream);
+    }
 };
+
+/** 미완성  */
+function stopScreenShare(stream) {
+    console.log(stream);
+
+    stream.getVideoTracks()[0].addEventListener("ended", () => {
+        stream.onended = (e) => {
+            console.log(e);
+            alert("stopped");
+        };
+        console.log("Screen Share End");
+    });
+}
 
 /******* Result Code *******/
 shareScreenBtnFunc();

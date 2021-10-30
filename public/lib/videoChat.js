@@ -3,6 +3,7 @@ const rVideoCtr = document.getElementById("remote__video__container");
 const lVideo = document.createElement("video");
 lVideo.setAttribute("id", "local__video");
 lVideo.muted = true;
+lVideo.volume = 0;
 
 const mediaDevices = navigator.mediaDevices;
 const getUserMedia =
@@ -18,11 +19,11 @@ flipCamera.addEventListener("click", () => {
 
 const constraints = {
     audio: {
-        autoGainControl: false,
+        autoGainControl: true,
         channelCount: 2,
-        echoCancellation: false,
+        echoCancellation: true,
         latency: 0,
-        noiseSuppression: false,
+        noiseSuppression: true,
         sampleRate: 48000,
         sampleSize: 16,
         volume: 1.0,
@@ -33,12 +34,11 @@ const constraints = {
     },
 };
 
-
-
 let myVideoStream;
 let myUserId;
 const peers = {};
-const users = [];
+let peerList = [];
+let currentPeer;
 
 function videoResultFunc() {
     videoCall();
@@ -57,14 +57,15 @@ async function videoCall() {
 
         call.answer(stream);
         call.on("stream", (userVideoStream) => {
-            addVideoStream(video, userVideoStream);
+            if (!peerList.includes(call.peer)) {
+                currentPeer = call.peerConnection;
+                addVideoStream(video, userVideoStream);
+            }
         });
     });
 
     peer.on("error", (e) => {
-        setTimeout(() => {
-            console.error(e);
-        }, 3000);
+        console.error(e);
     });
 
     socket.on("user-connected", (userId) => {
@@ -79,6 +80,7 @@ socket.on("user-disconnected", (userId) => {
 
 peer.on("open", (id) => {
     console.log("voice chat on!");
+    //peerList.push(id);
     socket.emit("join-room", ROOM_ID, id);
 });
 
@@ -88,7 +90,12 @@ function connectToNewUser(userId, stream) {
     const video = document.createElement("video");
     video.setAttribute("id", "remote__video");
     call.on("stream", (userVideoStream) => {
-        addVideoStream(video, userVideoStream);
+        if (!peerList.includes(call.peer)) {
+            addVideoStream(video, userVideoStream);
+            currentPeer = call.peerConnection;
+            peerList.push(call.peer);
+            console.log(peerList);
+        }
     });
     call.on("close", () => {
         video.remove();
@@ -100,6 +107,7 @@ function connectToNewUser(userId, stream) {
 function addVideoStream(video, stream) {
     video.srcObject = stream;
     video.setAttribute("playsinline", true);
+    video.autoplay = true;
 
     console.log(video.id);
 
@@ -108,7 +116,6 @@ function addVideoStream(video, stream) {
             "The duration and dimensions " +
                 "of the media and tracks are now known. "
         );
-        video.play();
     });
 
     if (video.id == "local__video") {
