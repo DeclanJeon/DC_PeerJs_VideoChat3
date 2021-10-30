@@ -122,6 +122,7 @@ function addVideoStream(video, stream) {
         lVideoCtr.append(video);
     } else if (video.id == "remote__video") {
         console.log("remote On!");
+        video.volume = 0;
         rVideoCtr.append(video);
     } else {
         console.error("video track output err");
