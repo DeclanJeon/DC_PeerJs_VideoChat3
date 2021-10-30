@@ -13,23 +13,29 @@
     <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.slim.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.3/js/bootstrap.min.js"></script>
     <title>WebRTC DC</title>
     <script>
         const ROOM_ID = '<%=roomId %>'
     </script>
     <%- include("./settings") %>
+        <%- include("./fileshare") %>
 </head>
 
 <body>
     <div class="header">
         <div class="logo">
-
             <img class="img__logo" src="logo.svg" alt="">
         </div>
-        <div class="setting" data-toggle="modal" data-target="#exampleModal">
-            <i class="fas fa-cog"></i>
+        <div class="nav__container">
+            <div class="fileshare" data-toggle="modal" data-target="#fileshareModal">
+                <i class="far fa-file"></i>
+            </div>
+            <div class="setting" data-toggle="modal" data-target="#settingModal">
+                <i class="fas fa-cog"></i>
+            </div>
         </div>
     </div>
     <div class="main">
@@ -100,6 +106,7 @@
     <script src="videoMute.js"></script>
     <script src="screenShare.js"></script>
     <script src="speechRecognition.js"></script>
+    <script src="fileShare.js"></script>
 </body>
 
 </html>

@@ -30,15 +30,31 @@
     display: flex;
 }
 
-.setting {
+.nav__container {
     color: #fff;
     margin-left: auto;
     display: flex;
     align-items: center;
 }
 
+.fileShare__container {
+    display : flex;
+    padding : 10px;
+    border : 3px solid grey;
+}
+
+.fa-file {
+    font-size: xx-large;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.fa-file:hover {
+    color : skyblue;
+}
+
 .fa-cog {
-    font-size: xxx-large;
+    font-size: xx-large;
     margin-right: 20px;
     cursor: pointer;
 }
@@ -48,7 +64,7 @@
 }
 
 .img__logo {
-    width: 100%;
+    width: 80%;
 }
 
 .main {

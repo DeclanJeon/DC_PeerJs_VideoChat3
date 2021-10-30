@@ -29,6 +29,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, "../public")));
 app.use(express.static(path.join(__dirname, "../public/css")));
 app.use(express.static(path.join(__dirname, "../public/lib")));
+app.use(express.static(path.join(__dirname, "../public/img")));
 
 app.get("/", (req, res) => {
     res.redirect(`${roomID}`);
