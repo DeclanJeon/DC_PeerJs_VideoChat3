@@ -19,10 +19,13 @@ flipCamera.addEventListener("click", () => {
 const constraints = {
     audio: {
         autoGainControl: true,
+        channelCount: 2,
         echoCancellation: true,
+        latency: 0,
         noiseSuppression: true,
         sampleRate: 48000,
         sampleSize: 16,
+        volume: 1.0,
     },
     video: {
         facingMode: front ? "user" : "environment",
@@ -106,19 +109,18 @@ function connectToNewUser(userId, stream) {
 function addVideoStream(video, stream) {
     video.srcObject = stream;
     video.setAttribute("playsinline", true);
-    video.autoplay = true;
 
     video.addEventListener("loadedmetadata", () => {
         console.log(
             "The duration and dimensions " +
                 "of the media and tracks are now known. "
         );
+        video.play();
     });
 
     if (video.id == "local__video") {
         lVideoCtr.append(video);
     } else if (video.id == "remote__video") {
-        video.volume = 0;
         console.log("remote On!");
         rVideoCtr.append(video);
     } else {
