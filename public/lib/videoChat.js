@@ -2,7 +2,7 @@ const lVideoCtr = document.getElementById("local__video__container");
 const rVideoCtr = document.getElementById("remote__video__container");
 const lVideo = document.createElement("video");
 lVideo.setAttribute("id", "local__video");
-lVideo.muted = true;
+lVideo.volume = 0;
 
 const mediaDevices = navigator.mediaDevices;
 const getUserMedia =
@@ -19,13 +19,10 @@ flipCamera.addEventListener("click", () => {
 const constraints = {
     audio: {
         autoGainControl: true,
-        channelCount: 2,
         echoCancellation: true,
-        latency: 0,
         noiseSuppression: true,
         sampleRate: 48000,
         sampleSize: 16,
-        volume: 1.0,
     },
     video: {
         facingMode: front ? "user" : "environment",
@@ -121,6 +118,7 @@ function addVideoStream(video, stream) {
     if (video.id == "local__video") {
         lVideoCtr.append(video);
     } else if (video.id == "remote__video") {
+        video.volume = 0;
         console.log("remote On!");
         rVideoCtr.append(video);
     } else {
