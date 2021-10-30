@@ -3,7 +3,6 @@ const rVideoCtr = document.getElementById("remote__video__container");
 const lVideo = document.createElement("video");
 lVideo.setAttribute("id", "local__video");
 lVideo.muted = true;
-lVideo.volume = 0;
 
 const mediaDevices = navigator.mediaDevices;
 const getUserMedia =
@@ -76,12 +75,15 @@ async function videoCall() {
 
 socket.on("user-disconnected", (userId) => {
     if (peers[userId]) peers[userId].close();
+    console.log(peers[userId]);
+    peerList.pop(userId);
 });
 
 peer.on("open", (id) => {
+    peerList.push(id);
     console.log("voice chat on!");
-    //peerList.push(id);
     socket.emit("join-room", ROOM_ID, id);
+    socket.emit("create message", username + "님께서 접속 하셨습니다.");
 });
 
 function connectToNewUser(userId, stream) {
@@ -108,8 +110,6 @@ function addVideoStream(video, stream) {
     video.srcObject = stream;
     video.setAttribute("playsinline", true);
     video.autoplay = true;
-
-    console.log(video.id);
 
     video.addEventListener("loadedmetadata", () => {
         console.log(
