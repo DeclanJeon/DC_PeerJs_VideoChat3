@@ -1,4 +1,4 @@
-#(1) 프로젝트 구성 안내
+(1) 프로젝트 구성 안내
 
 nodejs, ejs, css, js
 
@@ -42,7 +42,7 @@ Utils
 "socket.io": "^2.3.0",
 "uuid": "^8.3.2"
 
-#(2) 프로젝트 설치하는 방법
+(2) 프로젝트 설치하는 방법
 
 git clone https://github.com/DeclanJeon/DC_PeerJs_VideoChat3
 
@@ -51,12 +51,12 @@ cd DC_PeerJs_VideoChat3
 npm install
 yarn
 
-#(3) 프로젝트 사용법
+(3) 프로젝트 사용법
 
 yarn dev
 npm run dev
 
-#(4) 프로젝트 기능 설명
+(4) 프로젝트 기능 설명
 
 화상채팅 - P2P
 통상채팅 - P2P
@@ -64,10 +64,10 @@ npm run dev
 음성인식(다국어)
 파일공유 - Server 키 전송 / 로컬에서도 사용 가능
 
-#(5) 저작권 및 사용권 정보
+(5) 저작권 및 사용권 정보
 Declan
 
-#(6) 버그
+(6) 버그
 화면공유 기능 수정보안 필요
 Peer간 동시 음성인식 진행 시에 비디오 트랙이 멈추는 현상 발견
 
@@ -79,10 +79,10 @@ Peer간 연결속도 개선필요
 PeerServer 구축 필요..
 SFU, MCU 적용 필요
 
-#(7) 프로그램 작성자 및 도움을 준 사람
+(7) 프로그램 작성자 및 도움을 준 사람
 Declan
 
-#(8) 버전 (업데이트 소식)
+(8) 버전 (업데이트 소식)
 1.0
 
-#(9) FAQ
+(9) FAQ
