@@ -1,5 +1,4 @@
 const peer = new Peer(undefined, {
-    proxied: true,
     config: {
         iceServers: [
             {
