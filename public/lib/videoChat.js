@@ -2,12 +2,11 @@ const lVideoCtr = document.getElementById("local__video__container");
 const rVideoCtr = document.getElementById("remote__video__container");
 const lVideo = document.createElement("video");
 lVideo.setAttribute("id", "local__video");
+lVideo.muted = true;
 
-const mediaDevices = navigator.mediaDevices;
-const getUserMedia =
-    mediaDevices.getUserMedia ||
-    navigator.webkitGetUserMedia ||
-    navigator.mozGetUserMedia;
+console.log(adapter.browserDetails.browser);
+
+const getUserMedia = navigator.mediaDevices.getUserMedia;
 
 let front = true;
 flipCamera.addEventListener("click", () => {
@@ -17,16 +16,15 @@ flipCamera.addEventListener("click", () => {
 
 const constraints = {
     audio: {
-        autoGainControl: true,
+        autoGainControl: false,
+        echoCancellation: false,
+        noiseSuppression: false,
+        echoCancellationType: "browser" / "system",
         channelCount: 2,
-        echoCancellation: true,
         latency: 0,
-        noiseSuppression: true,
         sampleRate: 48000,
         sampleSize: 16,
         volume: 1.0,
-        googEchoCancellation: true,
-        echoCancellationType: "browser" / "system",
     },
     video: {
         facingMode: front ? "user" : "environment",
@@ -110,7 +108,6 @@ function connectToNewUser(userId, stream) {
 function addVideoStream(video, stream) {
     video.srcObject = stream;
     video.setAttribute("playsinline", true);
-    video.volume = 0;
 
     video.addEventListener("loadedmetadata", () => {
         console.log(
