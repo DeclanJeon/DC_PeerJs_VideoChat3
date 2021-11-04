@@ -4,8 +4,6 @@ const lVideo = document.createElement("video");
 lVideo.setAttribute("id", "local__video");
 lVideo.muted = true;
 
-console.log(adapter.browserDetails.browser);
-
 const getUserMedia = navigator.mediaDevices.getUserMedia;
 
 let front = true;
