@@ -1,7 +1,7 @@
 const lVideoCtr = document.getElementById("local__video__container");
 const rVideoCtr = document.getElementById("remote__video__container");
 const lVideo = document.createElement("video");
-lVideo.setAttribute("id", "local__video");
+lVideo.id = "local__video";
 lVideo.muted = true;
 
 const getUserMedia = navigator.mediaDevices.getUserMedia;
