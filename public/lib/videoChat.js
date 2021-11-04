@@ -25,6 +25,8 @@ const constraints = {
         sampleRate: 48000,
         sampleSize: 16,
         volume: 1.0,
+        googEchoCancellation: true,
+        echoCancellationType: "browser" / "system",
     },
     video: {
         facingMode: front ? "user" : "environment",
@@ -108,6 +110,7 @@ function connectToNewUser(userId, stream) {
 function addVideoStream(video, stream) {
     video.srcObject = stream;
     video.setAttribute("playsinline", true);
+    video.volume = 0;
 
     video.addEventListener("loadedmetadata", () => {
         console.log(
