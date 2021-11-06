@@ -19,7 +19,7 @@ const constraints = {
         volume: 1.0,
     },
     video: {
-        // facingMode: { ideal: ["user", "environment"] },
+        facingMode: { ideal: ["user", "environment"] },
         frameRate: { ideal: 15, max: 20 },
     },
 };
