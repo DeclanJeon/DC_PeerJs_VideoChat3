@@ -2,6 +2,7 @@ const cors = require("cors");
 const express = require("express");
 const app = express();
 const path = require("path");
+const fs = require("fs");
 const { customAlphabet } = require("nanoid");
 const { ExpressPeerServer } = require("peer");
 const server = require("http").createServer(app);
@@ -17,9 +18,7 @@ const PORT = process.env.PORT || 1337;
 const nanoid = customAlphabet("ABCD123456", 5);
 const roomID = nanoid();
 
-const peerServer = ExpressPeerServer(server, {
-    debug: true,
-});
+const peerServer = ExpressPeerServer(server, {});
 
 app.set("view engine", "ejs");
 

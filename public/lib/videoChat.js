@@ -1,16 +1,10 @@
 const lVideoCtr = document.getElementById("local__video__container");
 const rVideoCtr = document.getElementById("remote__video__container");
 const lVideo = document.createElement("video");
-lVideo.setAttribute("id", "local__video");
+lVideo.id = "local__video";
 lVideo.muted = true;
 
 const getUserMedia = navigator.mediaDevices.getUserMedia;
-
-let front = true;
-flipCamera.addEventListener("click", () => {
-    front = !front;
-    console.log(front);
-});
 
 const constraints = {
     audio: {
@@ -25,7 +19,7 @@ const constraints = {
         volume: 1.0,
     },
     video: {
-        facingMode: front ? "user" : "environment",
+        // facingMode: { ideal: ["user", "environment"] },
         frameRate: { ideal: 15, max: 20 },
     },
 };
